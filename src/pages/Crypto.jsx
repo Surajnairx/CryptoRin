@@ -1,5 +1,5 @@
 const Crypto = () => {
-  return <div>Crypto Display</div>;
+  return <div>Crypto Page</div>;
 };
 
 export default Crypto;
