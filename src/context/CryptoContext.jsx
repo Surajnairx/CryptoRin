@@ -57,6 +57,7 @@ export default function CryptoContextProvider({ children }) {
   const ctxValue = {
     coins,
     searchData,
+    setSearchData,
     setCoinResult,
     getSearchResults,
   };
