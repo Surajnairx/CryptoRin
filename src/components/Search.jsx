@@ -5,16 +5,19 @@ import { CryptoContext } from "../context/CryptoContext";
 
 function Search() {
   const [searchText, setSearchText] = useState("");
-  const { getSearchResults, searchData } = useContext(CryptoContext);
+  const { getSearchResults, searchData, setCoinResult } =
+    useContext(CryptoContext);
 
+  function selectCoin(coin) {
+    setCoinResult(coin);
+    setSearchText("");
+  }
   function handleInput(event) {
     const query = event.target.value;
     setSearchText(query);
   }
   function handleSubmit(event) {
     event.preventDefault();
-    console.log(searchText);
-    setSearchText("");
   }
   useEffect(() => {
     if (!searchText.trim()) return;
@@ -50,13 +53,13 @@ function Search() {
       <div className="relative">
         {searchText.length > 0 ? (
           <ul className="absolute top-11 right-0 w-96 h-96 rounded overflow-x-hidden py-2 bg-transparent backdrop-blur-sm">
-            {console.log(searchData)}
             {searchData ? (
               searchData.map((coin) => {
                 return (
                   <li
-                    className="flex items-center ml-4 my-2 cursor-pointer"
+                    className="flex items-center ml-4 my-2 cursor-pointer hover:bg-gray-600"
                     key={coin.id}
+                    onClick={() => selectCoin(coin.id)}
                   >
                     <img
                       className="w-4 h-4 mx-1.5"
@@ -70,13 +73,6 @@ function Search() {
             ) : (
               <h2>Please Wait...</h2>
             )}
-            {/* {searchData ? (
-            searchData.coins?.length > 0 ? (
-              searchData.coins.map((coin) => <li key={coin.id}>{coin.name}</li>)
-            ) : null
-          ) : (
-            <h2>Please Wait...</h2>
-          )} */}
           </ul>
         ) : null}
       </div>
