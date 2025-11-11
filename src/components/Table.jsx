@@ -3,7 +3,7 @@ import { CryptoContext } from "../context/CryptoContext";
 
 function Table() {
   let { coins } = useContext(CryptoContext);
-  console.log(coins);
+  // console.log(coins);
 
   return (
     <div className="flex flex-col mt-9 border border-gray-100 rounded">
@@ -26,7 +26,7 @@ function Table() {
         last:border-b-0"
           >
             {coins.map((coin) => {
-              console.log(coin);
+              // console.log(coin);
 
               return (
                 <tr key={coin.id} className="hover:bg-gray-900">
