@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 
 import searchIcon from "../assets/search-icon.svg";
 import { CryptoContext } from "../context/CryptoContext";
+import Loader from "../UI/Loader";
 
 function Search() {
   const [searchText, setSearchText] = useState("");
@@ -51,7 +52,7 @@ function Search() {
       </form>
 
       <div className="relative">
-        {searchText.length > 0 ? (
+        {searchText?.length > 0 ? (
           <ul className="absolute top-11 right-0 w-96 h-96 rounded overflow-x-hidden py-2 bg-transparent backdrop-blur-sm">
             {searchData ? (
               searchData.map((coin) => {
@@ -71,7 +72,7 @@ function Search() {
                 );
               })
             ) : (
-              <h2>Please Wait...</h2>
+              <Loader />
             )}
           </ul>
         ) : null}

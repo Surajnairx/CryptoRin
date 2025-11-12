@@ -1,6 +1,6 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable no-unused-vars */
-import { createContext, useEffect, useLayoutEffect, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const CryptoContext = createContext({
@@ -13,7 +13,7 @@ export const CryptoContext = createContext({
 export default function CryptoContextProvider({ children }) {
   const API_KEY = import.meta.env.VITE_API_KEY;
   const [coins, setCoins] = useState([]);
-  const [searchData, setSearchData] = useState([]);
+  const [searchData, setSearchData] = useState();
   const [coinResult, setCoinResult] = useState("");
 
   const getCryptoData = async () => {
