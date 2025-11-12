@@ -20,25 +20,46 @@ export default function CryptoContextProvider({ children }) {
   const [coinResult, setCoinResult] = useState("");
   const [currency, setCurrency] = useState("usd");
   const [sortBy, setSortBy] = useState("market_cap_desc");
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(250);
+  const [perPage, setPerPage] = useState(7);
 
   const getCryptoData = async () => {
-    console.log(currency, coinResult);
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinResult}&price_change_percentage=1h,24h,7d&per_page=10&order=${sortBy}`;
-
-    const options = {
-      method: "GET",
-      headers: { "x-cg-demo-api-key": API_KEY },
-      body: null,
-    };
     try {
+      const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinResult}&price_change_percentage=1h,24h,7d&per_page=${perPage}&order=${sortBy}&page=${currentPage}`;
+
+      const options = {
+        method: "GET",
+        headers: { "x-cg-demo-api-key": API_KEY },
+        body: null,
+      };
       const response = await fetch(url, options);
       const data = await response.json();
       setCoins(data);
     } catch (err) {
       console.error(err);
     }
-  };
 
+    try {
+      const url = "https://api.coingecko.com/api/v3/coins/list";
+      const options = {
+        method: "GET",
+        headers: { "x-cg-demo-api-key": API_KEY },
+        body: null,
+      };
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setTotalPages(data.length);
+      console.log(data);
+      // setCoins(data);
+    } catch (err) {
+      console.error(err);
+    }
+  };
+  const reset = () => {
+    setCurrentPage(1);
+    setCoinResult("");
+  };
   const getSearchResults = async (query) => {
     const url = `https://api.coingecko.com/api/v3/search?query=${query}`;
     const options = {
@@ -59,7 +80,8 @@ export default function CryptoContextProvider({ children }) {
 
   useEffect(() => {
     getCryptoData();
-  }, [coinResult, currency, sortBy]);
+  }, [coinResult, currency, sortBy, currentPage, perPage]);
+
   const ctxValue = {
     coins,
     searchData,
@@ -70,6 +92,12 @@ export default function CryptoContextProvider({ children }) {
     currency,
     sortBy,
     setSortBy,
+    currentPage,
+    setCurrentPage,
+    totalPages,
+    reset,
+    setPerPage,
+    perPage,
   };
 
   return (
