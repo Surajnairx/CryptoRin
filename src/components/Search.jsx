@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from "react";
-
 import searchIcon from "../assets/search-icon.svg";
 import { CryptoContext } from "../context/CryptoContext";
 import Loader from "../UI/Loader";
@@ -13,71 +12,81 @@ function Search() {
     setCoinResult(coin);
     setSearchText("");
   }
-  function handleInput(event) {
-    const query = event.target.value;
-    setSearchText(query);
+
+  function handleInput(e) {
+    setSearchText(e.target.value);
   }
-  function handleSubmit(event) {
-    event.preventDefault();
+
+  function handleSubmit(e) {
+    e.preventDefault();
   }
+
   useEffect(() => {
     if (!searchText.trim()) return;
     const timer = setTimeout(() => {
       getSearchResults(searchText);
     }, 1000);
-
-    return () => {
-      clearTimeout(timer);
-    };
+    return () => clearTimeout(timer);
   }, [searchText, getSearchResults]);
 
   return (
-    <>
+    <div className="relative">
+      {/* 🔍 Search Input */}
       <form
-        className="relative w-96 flex items-center ml-7 rounded-sm"
         onSubmit={handleSubmit}
+        className="relative w-72 md:w-96 flex items-center bg-gray-800 border border-gray-700 rounded-lg overflow-hidden focus-within:border-cyan-400 transition duration-200"
       >
         <input
-          className="bg-gray-800 px-1 w-full rounded focus:border-cyan-300 outline-0 border border-transparent"
           type="text"
           name="search"
-          placeholder="search here..."
+          placeholder="Search crypto..."
           value={searchText}
           required
           onChange={handleInput}
+          className="w-full bg-transparent text-sm text-white px-3 py-2 placeholder-gray-500 focus:outline-none"
         />
-        <button className="cursor-pointer absolute right-1" type="submit">
-          <img src={searchIcon} alt="search" />
+        <button
+          type="submit"
+          className="absolute right-2 p-1 rounded-md hover:bg-cyan-400/20 transition"
+        >
+          <img src={searchIcon} alt="search" className="w-4 h-4" />
         </button>
       </form>
 
-      <div className="relative">
-        {searchText?.length > 0 ? (
-          <ul className="absolute top-11 right-0 w-96 h-96 rounded overflow-x-hidden py-2 bg-transparent backdrop-blur-sm">
-            {searchData ? (
-              searchData.map((coin) => {
-                return (
+      {/* 🔽 Search Results Dropdown */}
+      {searchText.length > 0 && (
+        <div className="absolute top-12 left-0 w-full bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg overflow-y-auto max-h-72 z-10">
+          {searchData ? (
+            searchData.length > 0 ? (
+              <ul className="py-2">
+                {searchData.map((coin) => (
                   <li
-                    className="flex items-center ml-4 my-2 cursor-pointer hover:bg-gray-600"
                     key={coin.id}
                     onClick={() => selectCoin(coin.id)}
+                    className="flex items-center gap-2 px-4 py-2 text-sm text-gray-300 hover:bg-cyan-500/20 cursor-pointer transition"
                   >
                     <img
-                      className="w-4 h-4 mx-1.5"
                       src={coin.large}
                       alt={coin.name}
+                      className="w-5 h-5 rounded-full"
                     />
-                    {coin.name}
+                    <span>{coin.name}</span>
                   </li>
-                );
-              })
+                ))}
+              </ul>
             ) : (
+              <div className="flex justify-center py-6 text-gray-400 text-sm">
+                No results found.
+              </div>
+            )
+          ) : (
+            <div className="flex justify-center items-center py-6">
               <Loader />
-            )}
-          </ul>
-        ) : null}
-      </div>
-    </>
+            </div>
+          )}
+        </div>
+      )}
+    </div>
   );
 }
 
