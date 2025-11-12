@@ -16,6 +16,9 @@ function Pagination() {
   const multiStep = () => {
     setCurrentPage((prev) => prev + 3);
   };
+  const jumpToLast = () => {
+    setCurrentPage(totalNumber);
+  };
   return (
     <div className="flex items-center">
       <ul className="flex items-center justify-center text-sm">
@@ -47,27 +50,38 @@ function Pagination() {
             {currentPage}
           </button>
         </li>
-        <li>
-          <button
-            onClick={next}
-            className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5"
-          >
-            {currentPage + 1}
-          </button>
-        </li>
-        <li>
-          <button
-            onClick={multiStep}
-            className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5 "
-          >
-            ...
-          </button>
-        </li>
-        <li>
-          <button className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5">
-            100
-          </button>
-        </li>
+        {currentPage + 1 >= totalNumber ? null : (
+          <li>
+            <button
+              onClick={next}
+              className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5"
+            >
+              {currentPage + 1}
+            </button>
+          </li>
+        )}
+        {currentPage + 3 >= totalNumber ? null : (
+          <li>
+            <button
+              onClick={multiStep}
+              className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5 "
+            >
+              ...
+            </button>
+          </li>
+        )}
+
+        {currentPage === totalNumber ? null : (
+          <li>
+            <button
+              onClick={jumpToLast}
+              className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5"
+            >
+              {totalNumber}
+            </button>
+          </li>
+        )}
+
         <li>
           <button
             className="outline-0 hover:text-cyan-300 rounded-full h-8 w-8 flex items-center justify-center bg-gray-600 mx-1.5"
