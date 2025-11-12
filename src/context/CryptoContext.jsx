@@ -8,6 +8,7 @@ export const CryptoContext = createContext({
   searchData: [],
   setCoinResult: "",
   getSearchData: (query) => {},
+  setCurrency: () => {},
 });
 
 export default function CryptoContextProvider({ children }) {
@@ -15,9 +16,11 @@ export default function CryptoContextProvider({ children }) {
   const [coins, setCoins] = useState([]);
   const [searchData, setSearchData] = useState();
   const [coinResult, setCoinResult] = useState("");
+  const [currency, setCurrency] = useState("usd");
 
   const getCryptoData = async () => {
-    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=usd&ids=${coinResult}&price_change_percentage=1h,24h,7d&per_page=10`;
+    console.log(currency, coinResult);
+    const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinResult}&price_change_percentage=1h,24h,7d&per_page=10`;
 
     const options = {
       method: "GET",
@@ -53,13 +56,15 @@ export default function CryptoContextProvider({ children }) {
 
   useEffect(() => {
     getCryptoData();
-  }, [coinResult]);
+  }, [coinResult, currency]);
   const ctxValue = {
     coins,
     searchData,
     setSearchData,
     setCoinResult,
     getSearchResults,
+    setCurrency,
+    currency,
   };
 
   return (

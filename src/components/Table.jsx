@@ -2,7 +2,7 @@ import { useContext } from "react";
 import { CryptoContext } from "../context/CryptoContext";
 
 function Table() {
-  let { coins } = useContext(CryptoContext);
+  let { coins, currency } = useContext(CryptoContext);
   // console.log(coins);
 
   return (
@@ -61,7 +61,7 @@ function Table() {
                   <td className="py-4">
                     {new Intl.NumberFormat("en-IN", {
                       style: "currency",
-                      currency: "usd",
+                      currency: currency,
                     }).format(coin.current_price)}
                   </td>
                   <td className="py-4">{coin.total_volume}</td>
