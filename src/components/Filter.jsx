@@ -1,11 +1,12 @@
 import React, { useContext, useRef } from "react";
 import Search from "./Search";
 import submitIcon from "../assets/submit-icon.svg";
+import resetIcon from "../assets/reset.svg";
 import { CryptoContext } from "../context/CryptoContext";
 
 const Filter = () => {
   const currencyRef = useRef();
-  const { setCurrency, setSortBy } = useContext(CryptoContext);
+  const { setCurrency, setSortBy, reset } = useContext(CryptoContext);
 
   const handleCurrency = (e) => {
     e.preventDefault();
@@ -75,11 +76,13 @@ const Filter = () => {
           </select>
         </label>
 
-        <img
-          className="w-4 h-4 cursor-pointer hover:bg-gray-600"
-          src={submitIcon}
-          alt="submit"
-        />
+        <button className="relative flex items-center text-sm" onClick={reset}>
+          <span className="font-semibold">Reset: </span>
+          <img
+            className="bg-cyan-300 rounded-full m-2 w-5 h-5 transition-transform duration-300 hover:scale-125"
+            src={resetIcon}
+          />
+        </button>
       </div>
     </div>
   );
