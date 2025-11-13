@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { CryptoContext } from "../context/CryptoContext";
 import Pagination from "./Pagination";
+import { Link } from "react-router-dom";
 
 function Table() {
   let { coins, currency } = useContext(CryptoContext);
@@ -54,9 +55,18 @@ function Table() {
                         src={coin.image}
                         alt={coin.name}
                       />
-                      <span>{coin.symbol}</span>
+                      <span>
+                        <Link className="cursor-pointer" to={`/${coin.id}`}>
+                          {coin.symbol}
+                        </Link>
+                      </span>
                     </td>
-                    <td className="py-4">{coin.name}</td>
+                    <td className="py-4">
+                      <Link className="cursor-pointer" to={`/${coin.id}`}>
+                        {coin.name}
+                      </Link>
+                      {coin.name}
+                    </td>
                     <td className="py-4">
                       {new Intl.NumberFormat("en-IN", {
                         style: "currency",
