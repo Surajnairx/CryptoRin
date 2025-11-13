@@ -57,6 +57,7 @@ export default function CryptoContextProvider({ children }) {
     }
   };
   const reset = () => {
+    setSearchData();
     setCurrentPage(1);
     setCoinResult("");
   };
