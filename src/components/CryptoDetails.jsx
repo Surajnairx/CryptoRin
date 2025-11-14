@@ -25,7 +25,7 @@ function CryptoDetails() {
         className="w-[65%] h-[75%] bg-gray-300/20 rounded-lg text-white relative"
       >
         {data ? (
-          <div className="flex items-center justify-between h-full w-full py-3 px-3">
+          <div className="flex items-center justify-around h-full w-full py-3 px-3">
             <div className=" flex flex-col w-[45%] h-full pr-2">
               <div className="flex w-full items-center">
                 <img
@@ -179,7 +179,7 @@ function CryptoDetails() {
                 </div>
               </div>
               <div className="flex w-full mt-4 justify-between">
-                <div className="flex flex-col w-auto">
+                <div className="flex flex-col justify-center items-center w-auto">
                   <a
                     className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
                     href={data?.links.homepage[0]}

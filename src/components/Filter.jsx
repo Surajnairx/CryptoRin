@@ -21,7 +21,7 @@ const Filter = () => {
     setSortBy(val);
   };
   return (
-    <div className="w-full h-16 bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl flex items-center justify-between px-4 md:px-6 shadow-md">
+    <div className="w-full h-16 bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl flex items-center justify-between px-2 md:px-6 shadow-md">
       {/* 🔍 Search Component */}
       <div className="flex-1">
         <Search />
