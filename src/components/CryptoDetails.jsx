@@ -1,4 +1,4 @@
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { CryptoContext } from "../context/CryptoContext";
@@ -15,6 +15,33 @@ function CryptoDetails() {
     getCoinData(coinId);
   }, [coinId]);
 
+  const HighLowIndicator = ({ currentPrice, high, low }) => {
+    const [green, setGreen] = useState();
+
+    useEffect(() => {
+      console.log(currentPrice, high, low);
+      let total = high - low;
+      let greenZone = ((high - currentPrice) * 100) / total;
+      setGreen(Math.ceil(greenZone));
+    }, [currentPrice, high, low]);
+
+    return (
+      <>
+        <span
+          className="bg-red-400 h-1.5 rounded-l-lg w-[50%]"
+          style={{ width: `${100 - green}%` }}
+        >
+          &nbsp;
+        </span>
+        <span
+          className="bg-green-400 h-1.5 rounded-r-lg w-[50%]"
+          style={{ width: `${green}` }}
+        >
+          &nbsp;
+        </span>
+      </>
+    );
+  };
   return createPortal(
     <div
       onClick={close}
@@ -125,7 +152,14 @@ function CryptoDetails() {
                   </h2>
                 </div>
               </div>
-              <div className="flex w-full mt-4 justify-center"> indicator</div>
+              <div className="flex w-full mt-4 justify-center">
+                {" "}
+                <HighLowIndicator
+                  currentPrice={data.market_data.current_price[currency]}
+                  high={data.market_data.high_24h[currency]}
+                  low={data.market_data.low_24h[currency]}
+                />
+              </div>
               <div className="flex w-full mt-4 justify-between">
                 <div className="flex flex-col">
                   <span className="text-sm capitalize text-stone-400">
@@ -192,7 +226,7 @@ function CryptoDetails() {
                     href={data?.links.blockchain_site[2]}
                     target="_blank"
                   >
-                    {data?.links.blockchain_site[2].substring(0, 26)}
+                    {data?.links.blockchain_site[2]?.substring(0, 26)}
                   </a>
                 </div>
                 <div className="flex flex-col content-start">
