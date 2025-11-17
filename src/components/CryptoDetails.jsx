@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { CryptoContext } from "../context/CryptoContext";
+import Charts from "./Charts";
 function CryptoDetails() {
   const { coinId } = useParams();
   const navigate = useNavigate();
@@ -19,7 +20,6 @@ function CryptoDetails() {
     const [green, setGreen] = useState();
 
     useEffect(() => {
-      console.log(currentPrice, high, low);
       let total = high - low;
       let greenZone = ((high - currentPrice) * 100) / total;
       setGreen(Math.ceil(greenZone));
@@ -264,7 +264,9 @@ function CryptoDetails() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-[55%] h-full pl-3 ">Right</div>
+            <div className="flex flex-col w-[55%] h-full pl-3 ">
+              <Charts id={data.id} />
+            </div>
           </div>
         ) : null}
       </div>
