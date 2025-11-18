@@ -10,49 +10,9 @@ import {
 } from "recharts";
 import { CryptoContext } from "../context/CryptoContext";
 
-// #region Sample data
-// const data = [
-//   {
-//     name: "Page A",
-//     uv: 400,
-//     pv: 2400,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page B",
-//     uv: 300,
-//     pv: 4567,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page C",
-//     uv: 320,
-//     pv: 1398,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page D",
-//     uv: 200,
-//     pv: 9800,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page E",
-//     uv: 278,
-//     pv: 3908,
-//     amt: 2400,
-//   },
-//   {
-//     name: "Page F",
-//     uv: 189,
-//     pv: 4800,
-//     amt: 2400,
-//   },
-// ];
-
-const ChartComponent = ({ data, currency }) => {
+const ChartComponent = ({ data, currency, type }) => {
   function CustomTooltip({ payload, label, active, currency = "usd" }) {
-    if (active && payload && payload.length) {
+    if (active && payload && payload.length > 0) {
       return (
         <div
           className="custom-tooltip"
@@ -86,13 +46,13 @@ const ChartComponent = ({ data, currency }) => {
         top: 20,
         right: 20,
         bottom: 5,
-        left: 0,
+        left: 20,
       }}
     >
       <CartesianGrid stroke="grey" />
       <Line
         type="monotone"
-        dataKey="prices"
+        dataKey={type}
         stroke="cyan"
         strokeWidth={1}
         name="prices"
@@ -100,7 +60,7 @@ const ChartComponent = ({ data, currency }) => {
       <XAxis dataKey="date" hide />
       <YAxis
         name="Prices"
-        dataKey="prices"
+        dataKey={type}
         domain={["auto", "auto"]}
         width="auto"
         hide
@@ -120,10 +80,13 @@ const ChartComponent = ({ data, currency }) => {
 function Charts({ id }) {
   const [chatData, setChartData] = useState();
   const { currency } = useContext(CryptoContext);
+  //for the price / market cap / total volume
+  const [type, setType] = useState("prices");
+  const [days, setDays] = useState(7);
   const API_KEY = import.meta.env.VITE_API_KEY;
   useLayoutEffect(() => {
     const getChatData = async () => {
-      const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=7&interval=daily`;
+      const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=usd&days=${days}&interval=daily`;
       const options = {
         method: "GET",
         headers: { "x-cg-demo-api-key": API_KEY },
@@ -134,23 +97,98 @@ function Charts({ id }) {
         const response = await fetch(url, options);
         const data = await response.json();
 
-        const convertedData = data.prices.map((item) => {
+        const convertedData = data[type].map((item) => {
           return {
             date: new Date(item[0]).toLocaleDateString(),
-            prices: item[1],
+            [type]: item[1],
           };
         });
-        console.log(convertedData);
+
         setChartData(convertedData);
       } catch (error) {
         console.error(error);
       }
     };
     getChatData(id);
-  }, [id]);
+  }, [id, type, days]);
   return (
     <div>
-      <ChartComponent data={chatData} currency={currency} />
+      <ChartComponent data={chatData} currency={currency} type={type} />
+      <div className="flex justify-between px-4">
+        <div className="border p-2 rounded">
+          <h1 className="text-center">Values</h1>
+          <button
+            className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
+              type === "prices"
+                ? "bg-cyan-300 text-black"
+                : "bg-cyan-200/20 text-white "
+            }`}
+            onClick={() => setType("prices")}
+          >
+            Price
+          </button>
+          <button
+            className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
+              type === "market_caps"
+                ? "bg-cyan-300 text-black"
+                : "bg-cyan-200/20 text-white"
+            }`}
+            onClick={() => setType("market_caps")}
+          >
+            Market Cap
+          </button>
+          <button
+            className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
+              type === "total_volumes"
+                ? "bg-cyan-300 text-black"
+                : "bg-cyan-200/20 text-white"
+            }`}
+            onClick={() => setType("total_volumes")}
+          >
+            Total Volume
+          </button>
+        </div>
+
+        <div className="border p-2 rounded ">
+          <h1 className="text-center">Time</h1>
+          <button
+            className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
+              days === 7
+                ? "bg-cyan-300 text-black"
+                : "bg-cyan-200/20 text-white"
+            }`}
+            onClick={() => {
+              setDays(7);
+            }}
+          >
+            7D
+          </button>
+          <button
+            className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
+              days === 14
+                ? "bg-cyan-300 text-black"
+                : "bg-cyan-200/20 text-white "
+            }`}
+            onClick={() => {
+              setDays(14);
+            }}
+          >
+            14D
+          </button>
+          <button
+            className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
+              days === 30
+                ? "bg-cyan-300 text-black"
+                : "bg-cyan-200/20 text-white"
+            }`}
+            onClick={() => {
+              setDays(30);
+            }}
+          >
+            30D
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

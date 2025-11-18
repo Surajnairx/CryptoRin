@@ -1,4 +1,7 @@
 import { useContext, useEffect, useState } from "react";
+import githubSvg from "../assets/github-fill.svg";
+import twitterSvg from "../assets/twitter-circle-filled.svg";
+import redditSvg from "../assets/reddit-fill.svg";
 import { createPortal } from "react-dom";
 import { useNavigate, useParams } from "react-router-dom";
 import { CryptoContext } from "../context/CryptoContext";
@@ -52,7 +55,7 @@ function CryptoDetails() {
         className="w-[65%] h-[75%] bg-gray-300/20 rounded-lg text-white relative"
       >
         {data ? (
-          <div className="flex items-center justify-around h-full w-full py-3 px-3">
+          <div className="flex items-center justify-around h-full w-full p-3">
             <div className=" flex flex-col w-[45%] h-full pr-2">
               <div className="flex w-full items-center">
                 <img
@@ -266,9 +269,42 @@ function CryptoDetails() {
             </div>
             <div className="flex flex-col w-[55%] h-full pl-3 ">
               <Charts id={data.id} />
+              <div className="flex flex-col mt-8">
+                <h3 className="text-white py-1 text-right">
+                  <span className="text-gray-100 capitalize mr-1">
+                    Market Cap Rank : {data.market_cap_rank}
+                  </span>
+                </h3>
+              </div>
             </div>
           </div>
         ) : null}
+
+        <div className="absolute bottom-8 right-8 flex items-center gap-7">
+          {data ? (
+            <>
+              <a
+                href={data.links.repos_url.github[0]}
+                target="_blank"
+                className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+              >
+                <img className="h-7 m-1" src={githubSvg} alt="" srcset="" />
+              </a>
+              <a
+                className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                href={`https://twitter.com/4${data.links.twitter_screen_name}`}
+              >
+                <img className="h-7 m-1" src={twitterSvg} alt="" />
+              </a>
+              <a
+                className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                href={data.links.subreddit_url}
+              >
+                <img className="h-7 m-1" src={redditSvg} alt="" />
+              </a>
+            </>
+          ) : null}
+        </div>
       </div>
     </div>,
     document.getElementById("modal")

@@ -8,7 +8,7 @@ function Table() {
 
   return (
     <>
-      <div className="flex flex-col mt-9 border border-gray-100 rounded">
+      <div className="flex flex-col mt-9 border border-gray-100 rounded bg-cyan-600/20">
         {coins ? (
           <table className="w-full table-auto">
             <thead className=" capitalize text-base text-gray-500 font-medium border-b border-gray-600">
