@@ -1,11 +1,27 @@
+import { useContext, useEffect } from "react";
+import { StoreContext } from "../context/StoreContext";
+
 function SaveButton({ coinId }) {
+  const { saveCoin, savedCoin, removeCoin } = useContext(StoreContext);
+  const handleClick = (e) => {
+    e.preventDefault();
+
+    if (savedCoin.includes(coinId)) {
+      removeCoin(coinId);
+    } else {
+      saveCoin(coinId);
+    }
+  };
+
   return (
     <button
       className="outline-0 border-0 bg-none cursor-pointer"
-      onClick={() => console.log(coinId)}
+      onClick={(e) => handleClick(e)}
     >
       <svg
-        className="w-6 ml-1.5 fill-gray-300 hover:fill-cyan-300"
+        className={`w-6 ml-1.5  hover:fill-cyan-300 ${
+          savedCoin.includes(coinId) ? `fill-cyan-300` : `fill-gray-300`
+        }`}
         width="30"
         height="30"
         viewBox="0 0 30 30"

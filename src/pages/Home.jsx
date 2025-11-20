@@ -5,20 +5,23 @@ import CryptoContextProvider from "../context/CryptoContext";
 import TrendingContextProvider, {
   TrendingContext,
 } from "../context/TrendingContext";
+import StoreContextProvider from "../context/StoreContext";
 
 function Home() {
   return (
-    <TrendingContextProvider>
-      <CryptoContextProvider>
-        <main className=" w-full h-full flex flex-col first-letter:capitalize items-center relative text-white ">
-          <div className="w-screen h-screen bg-black fixed -z-10"></div>
-          <Logo />
-          <Navigation />
+    <StoreContextProvider>
+      <TrendingContextProvider>
+        <CryptoContextProvider>
+          <main className=" w-full h-full flex flex-col first-letter:capitalize items-center relative text-white ">
+            <div className="w-screen h-screen bg-black fixed -z-10"></div>
+            <Logo />
+            <Navigation />
 
-          <Outlet />
-        </main>
-      </CryptoContextProvider>
-    </TrendingContextProvider>
+            <Outlet />
+          </main>
+        </CryptoContextProvider>
+      </TrendingContextProvider>
+    </StoreContextProvider>
   );
 }
 
