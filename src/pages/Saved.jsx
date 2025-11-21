@@ -1,11 +1,15 @@
 import { useContext, useEffect } from "react";
 import { StoreContext } from "../context/StoreContext";
 import { CryptoContext } from "../context/CryptoContext";
-import { Link } from "react-router-dom";
+import { Link, Outlet, useNavigate } from "react-router-dom";
 
 function Saved() {
   const { savedCoin, getSavedData, savedData } = useContext(StoreContext);
   const { currency } = useContext(CryptoContext);
+  const navigate = useNavigate();
+  const getCoinDetails = (id) => {
+    navigate(id);
+  };
 
   useEffect(() => {
     const idsString = savedCoin.join(",");
@@ -13,7 +17,7 @@ function Saved() {
     getSavedData(idsString);
   }, [savedCoin]);
   return (
-    <div className="w-full px-20">
+    <div className="w-full px-20 py-6">
       {console.log(savedData)}
       <div className="flex flex-col mt-9 border border-gray-100 rounded bg-cyan-600/20">
         {savedData ? (
@@ -34,23 +38,27 @@ function Saved() {
             >
               {savedData.map((coin) => {
                 return (
-                  <tr key={coin.id} className="hover:bg-gray-900">
-                    <td className="py-4 flex items-center uppercase not-first:">
+                  <tr
+                    key={coin.id}
+                    className="hover:bg-gray-900"
+                    onClick={() => getCoinDetails(coin.id)}
+                  >
+                    <td className="py-4 flex items-center justify-center uppercase not-first:">
                       <img
                         className="w-[1.2rem] h-[1.2rem] mx-1.5"
                         src={coin.image}
                         alt={coin.name}
                       />
                       <span>
-                        <Link className="cursor-pointer" to={`/${coin.id}`}>
+                        <div className="cursor-pointer" to={`/${coin.id}`}>
                           {coin.symbol}
-                        </Link>
+                        </div>
                       </span>
                     </td>
                     <td className="py-4">
-                      <Link className="cursor-pointer" to={`/${coin.id}`}>
+                      <div className="cursor-pointer" to={`/${coin.id}`}>
                         {coin.name}
-                      </Link>
+                      </div>
                     </td>
                     <td className="py-4">
                       {new Intl.NumberFormat("en-IN", {
@@ -85,6 +93,7 @@ function Saved() {
           </table>
         ) : null}
       </div>
+      <Outlet />
     </div>
   );
 }
