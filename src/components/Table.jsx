@@ -2,6 +2,7 @@ import { useContext } from "react";
 import { CryptoContext } from "../context/CryptoContext";
 import Pagination from "./Pagination";
 import { Link } from "react-router-dom";
+import Loader from "../UI/Loader";
 import SaveButton from "../UI/SaveButton";
 
 function Table() {
@@ -101,7 +102,11 @@ function Table() {
               })}
             </tbody>
           </table>
-        ) : null}
+        ) : (
+          <div className="flex justify-center items-center py-6 min-h-[60vh]">
+            <Loader />
+          </div>
+        )}
       </div>
 
       <div className="flex items-center justify-between mt-4 capitalize h-8">

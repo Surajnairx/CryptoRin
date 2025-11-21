@@ -46,6 +46,8 @@ export default function StoreContextProvider({ children }) {
       const data = await response.json();
       console.log(data);
       setSavedData(data);
+    } else {
+      setSavedData([]);
     }
   };
   useEffect(() => {

@@ -18,9 +18,8 @@ function Saved() {
   }, [savedCoin]);
   return (
     <div className="w-full px-20 py-6">
-      {console.log(savedData)}
-      <div className="flex flex-col mt-9 border border-gray-100 rounded bg-cyan-600/20">
-        {savedData ? (
+      {savedData.length > 0 ? (
+        <div className="flex flex-col mt-9 border border-gray-100 rounded bg-cyan-600/20">
           <table className="w-full table-auto">
             <thead className=" capitalize text-base text-gray-500 font-medium border-b border-gray-600">
               <tr>
@@ -91,8 +90,20 @@ function Saved() {
               })}
             </tbody>
           </table>
-        ) : null}
-      </div>
+        </div>
+      ) : (
+        <div className="h-[60vh] flex flex-col items-center justify-center text-center">
+          <div className="bg-cyan-400/10 border border-cyan-400/30 rounded-2xl p-10 shadow-md max-w-md">
+            <h1 className="text-2xl font-semibold text-cyan-300 mb-2">
+              No Coins Saved
+            </h1>
+            <p className="text-gray-400 text-sm">
+              Start adding your favorite coins to track them here.
+            </p>
+          </div>
+        </div>
+      )}
+
       <Outlet />
     </div>
   );
