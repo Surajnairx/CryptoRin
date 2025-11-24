@@ -48,11 +48,11 @@ function CryptoDetails() {
   return createPortal(
     <div
       onClick={close}
-      className="fixed top-0 w-full h-full bg-gray-600/5 backdrop-blur-sm flex items-center justify-center"
+      className="fixed top-0 w-full h-full bg-gray-600/0 backdrop-blur-sm flex items-center justify-center"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-[65%] h-[75%] bg-gray-300/20 rounded-lg text-white relative"
+        className="w-[65%] h-[75%] bg-gray-800/60 rounded-lg text-white relative"
       >
         {data ? (
           <div className="flex items-center justify-around h-full w-full p-3">
