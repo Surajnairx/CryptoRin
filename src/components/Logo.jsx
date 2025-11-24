@@ -4,7 +4,7 @@ import logoSvg from "../assets/logo.svg";
 function Logo() {
   return (
     <Link
-      className="absolute top-6 left-6 [text-decoration: none] text-lg flex items-center"
+      className="absolute top-6  [text-decoration: none] text-lg flex items-center"
       to="/"
     >
       <img src={logoSvg} alt="CryptoRin" />
