@@ -71,7 +71,7 @@ function Pagination() {
   //to check if the per page component should be rendered
   if (coins && coins.length >= perPage) {
     return (
-      <div className="flex items-center">
+      <div className="flex flex-col gap-5">
         <PerPage />
         <ul className="flex items-center justify-center text-sm">
           <li className="flex items-center">

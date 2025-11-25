@@ -21,14 +21,14 @@ const Filter = () => {
     setSortBy(val);
   };
   return (
-    <div className="w-full h-16 bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl flex items-center justify-between px-2 md:px-6 shadow-md">
+    <div className="w-full h-fit bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl flex flex-wrap  justify-center  p-2 shadow-md">
       {/* 🔍 Search Component */}
-      <div className="flex-1">
+      <div className="">
         <Search />
       </div>
 
       {/* 💰 Currency + Sort Section */}
-      <div className="flex items-center gap-6">
+      <div className="flex-col hidden items-center gap-1.5 mt-2">
         {/* Currency Form */}
         <form
           className="flex items-center bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 focus-within:border-cyan-400 transition duration-200"
@@ -58,10 +58,9 @@ const Filter = () => {
 
         {/* Sort Dropdown */}
         <label
-          className="flex items-center gap-2 text-sm text-gray-300"
+          className="flex items-center gap-2 text-sm text-gray-300 font-semibold mr-2"
           htmlFor="sortby"
         >
-          <span className="font-semibold">Sort by:</span>
           <select
             className="bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 text-white text-sm capitalize focus:border-cyan-400 outline-0 transition"
             name="sortby"
@@ -79,7 +78,7 @@ const Filter = () => {
         <button className="relative flex items-center text-sm" onClick={reset}>
           <span className="font-semibold">Reset: </span>
           <img
-            className="bg-cyan-300 rounded-full m-2 w-5 h-5 transition-transform duration-300 hover:scale-125"
+            className="bg-cyan-300 rounded-full m-1.5 h-5 transition-transform duration-300 hover:scale-125"
             src={resetIcon}
           />
         </button>

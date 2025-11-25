@@ -12,11 +12,11 @@ function Home() {
     <StoreContextProvider>
       <TrendingContextProvider>
         <CryptoContextProvider>
-          <main className=" w-screen h-screen flex flex-col items-center first-letter:capitalize relative text-white bg-black ">
+          <main className=" w-full h-full flex flex-col items-center first-letter:capitalize relative text-white bg-black ">
             <Logo />
             <Navigation />
 
-            {/* <Outlet /> */}
+            <Outlet />
           </main>
         </CryptoContextProvider>
       </TrendingContextProvider>

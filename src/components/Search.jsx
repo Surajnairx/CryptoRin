@@ -55,7 +55,7 @@ function Search() {
 
       {/* 🔽 Search Results Dropdown */}
       {searchText.length > 0 && (
-        <div className="absolute top-12 left-0 w-full bg-gray-900/80 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg overflow-y-auto max-h-72 z-10">
+        <div className="absolute top-12 left-0 w-full bg-gray-600/80 backdrop-blur-md border border-gray-700 rounded-xl shadow-lg overflow-y-auto max-h-72 z-10">
           {searchData ? (
             searchData.length > 0 ? (
               <ul className="py-2">

@@ -114,8 +114,8 @@ function Charts({ id }) {
   return (
     <div>
       <ChartComponent data={chatData} currency={currency} type={type} />
-      <div className="flex justify-between px-4">
-        <div className="border p-2 rounded">
+      <div className="flex gap-1 px-4">
+        <div className="border p-2 rounded flex flex-col gap-2 w-full">
           <h1 className="text-center">Values</h1>
           <button
             className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${
@@ -149,7 +149,7 @@ function Charts({ id }) {
           </button>
         </div>
 
-        <div className="border p-2 rounded ">
+        <div className="border p-2 rounded flex flex-col gap-2  w-full">
           <h1 className="text-center">Time</h1>
           <button
             className={`text-sm py-0.5 px-1.5 ml-2 cursor-pointer rounded ${

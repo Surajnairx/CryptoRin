@@ -52,11 +52,11 @@ function CryptoDetails() {
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-[65%] h-[75%] bg-gray-800/60 rounded-lg text-white relative"
+        className="w-[90%] h-[90%] bg-gray-800/60 rounded-lg text-white relative overflow-x-scroll"
       >
         {data ? (
-          <div className="flex items-center justify-around h-full w-full p-3">
-            <div className=" flex flex-col w-[45%] h-full pr-2">
+          <div className="flex flex-col  h-full w-full p-3">
+            <div className=" flex flex-col w-full pr-2">
               <div className="flex w-full items-center">
                 <img
                   className="w-12 h-12 mx-1.5 "
@@ -113,7 +113,7 @@ function CryptoDetails() {
                   </h2>
                 </div>
               </div>
-              <div className="flex w-full mt-4 justify-between">
+              <div className="flex flex-col w-full mt-4">
                 <div className="flex flex-col">
                   <span className="text-sm capitalize text-stone-400">
                     Market Cap
@@ -122,7 +122,7 @@ function CryptoDetails() {
                     {new Intl.NumberFormat("en-IN", {
                       style: "currency",
                       currency: currency,
-                      maximumSignificantDigits: 5,
+                      maximumSignificantDigits: 10,
                     }).format(data.market_data.market_cap[currency])}
                   </h2>
                 </div>
@@ -215,17 +215,17 @@ function CryptoDetails() {
                   </h2>
                 </div>
               </div>
-              <div className="flex w-full mt-4 justify-between">
-                <div className="flex flex-col justify-center items-center w-auto">
+              <div className="flex flex-col w-full mt-4 justify-between">
+                <div className="flex flex-col w-full justify-center items-center">
                   <a
-                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                    className="text-sm bg-gray-600/40 text-gray-300 px-1.5 py-0.5 rounded my-1 w-full text-center"
                     href={data?.links.homepage[0]}
                     target="_blank"
                   >
                     {data?.links.homepage[0]}
                   </a>
                   <a
-                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                    className="text-sm bg-gray-600/40 text-gray-300 px-1.5 py-0.5 rounded my-1 w-full text-center"
                     href={data?.links.blockchain_site[2]}
                     target="_blank"
                   >
@@ -267,46 +267,46 @@ function CryptoDetails() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-[55%] h-full pl-3 ">
+            <div className="flex flex-col w-full pl-3 ">
               <Charts id={data.id} />
               <div className="flex flex-col mt-8">
-                <h3 className="text-white py-1 text-right">
+                <h3 className="text-white py-1 text-center">
                   <span className="text-gray-100 capitalize mr-1">
                     Market Cap Rank : {data.market_cap_rank}
                   </span>
                 </h3>
               </div>
             </div>
+            <div className="flex justify-center gap-7">
+              {data ? (
+                <>
+                  <a
+                    href={data.links.repos_url.github[0]}
+                    target="_blank"
+                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                  >
+                    <img className="h-7 m-1" src={githubSvg} alt="" srcset="" />
+                  </a>
+                  <a
+                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                    href={`https://twitter.com/4${data.links.twitter_screen_name}`}
+                  >
+                    <img className="h-7 m-1" src={twitterSvg} alt="" />
+                  </a>
+                  <a
+                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                    href={data.links.subreddit_url}
+                  >
+                    <img className="h-7 m-1" src={redditSvg} alt="" />
+                  </a>
+                </>
+              ) : null}
+            </div>
           </div>
         ) : null}
-
-        <div className="absolute bottom-8 right-8 flex items-center gap-7">
-          {data ? (
-            <>
-              <a
-                href={data.links.repos_url.github[0]}
-                target="_blank"
-                className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
-              >
-                <img className="h-7 m-1" src={githubSvg} alt="" srcset="" />
-              </a>
-              <a
-                className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
-                href={`https://twitter.com/4${data.links.twitter_screen_name}`}
-              >
-                <img className="h-7 m-1" src={twitterSvg} alt="" />
-              </a>
-              <a
-                className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
-                href={data.links.subreddit_url}
-              >
-                <img className="h-7 m-1" src={redditSvg} alt="" />
-              </a>
-            </>
-          ) : null}
-        </div>
       </div>
     </div>,
+
     document.getElementById("modal")
   );
 }
