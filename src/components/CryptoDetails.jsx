@@ -48,15 +48,15 @@ function CryptoDetails() {
   return createPortal(
     <div
       onClick={close}
-      className="fixed top-0 w-full h-full bg-gray-600/0 backdrop-blur-sm flex items-center justify-center"
+      className="fixed top-0 w-full h-full bg-gray-600/0 backdrop-blur-sm flex items-center justify-around"
     >
       <div
         onClick={(e) => e.stopPropagation()}
-        className="w-[90%] h-[90%] bg-gray-800/60 rounded-lg text-white relative overflow-x-scroll"
+        className="w-[90%] md:w-[65%] md:h-auto h-[80%] bg-gray-800/60 rounded-lg text-white relative overflow-x-scroll md:overflow-hidden"
       >
         {data ? (
-          <div className="flex flex-col  h-full w-full p-3">
-            <div className=" flex flex-col w-full pr-2">
+          <div className="flex flex-col md:flex-row md:items-center md:justify-between h-auto w-autox p-3">
+            <div className=" flex flex-col h-auto w-full pr-2">
               <div className="flex w-full items-center">
                 <img
                   className="w-12 h-12 mx-1.5 "
@@ -215,7 +215,7 @@ function CryptoDetails() {
                   </h2>
                 </div>
               </div>
-              <div className="flex flex-col w-full mt-4 justify-between">
+              <div className="flex md:flex-row md:w-auto flex-col w-full mt-4 justify-between">
                 <div className="flex flex-col w-full justify-center items-center">
                   <a
                     className="text-sm bg-gray-600/40 text-gray-300 px-1.5 py-0.5 rounded my-1 w-full text-center"
@@ -267,40 +267,45 @@ function CryptoDetails() {
                 </div>
               </div>
             </div>
-            <div className="flex flex-col w-full pl-3 ">
+            <div className="flex flex-col md:justify-around w-full h-full pl-3 ">
               <Charts id={data.id} />
-              <div className="flex flex-col mt-8">
-                <h3 className="text-white py-1 text-center">
+              <div className="flex flex-col md:justify-between md:items-center  mt-8">
+                <h3 className="text-white py-1 text-center shrink-0">
                   <span className="text-gray-100 capitalize mr-1">
                     Market Cap Rank : {data.market_cap_rank}
                   </span>
                 </h3>
+                <div className="flex justify-center gap-7">
+                  {data ? (
+                    <>
+                      <a
+                        href={data.links.repos_url.github[0]}
+                        target="_blank"
+                        className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                      >
+                        <img
+                          className="h-7 m-1"
+                          src={githubSvg}
+                          alt=""
+                          srcset=""
+                        />
+                      </a>
+                      <a
+                        className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                        href={`https://twitter.com/4${data.links.twitter_screen_name}`}
+                      >
+                        <img className="h-7 m-1" src={twitterSvg} alt="" />
+                      </a>
+                      <a
+                        className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
+                        href={data.links.subreddit_url}
+                      >
+                        <img className="h-7 m-1" src={redditSvg} alt="" />
+                      </a>
+                    </>
+                  ) : null}
+                </div>
               </div>
-            </div>
-            <div className="flex justify-center gap-7">
-              {data ? (
-                <>
-                  <a
-                    href={data.links.repos_url.github[0]}
-                    target="_blank"
-                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
-                  >
-                    <img className="h-7 m-1" src={githubSvg} alt="" srcset="" />
-                  </a>
-                  <a
-                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
-                    href={`https://twitter.com/4${data.links.twitter_screen_name}`}
-                  >
-                    <img className="h-7 m-1" src={twitterSvg} alt="" />
-                  </a>
-                  <a
-                    className="text-sm bg-gray-600/40 text-gray-800 px-1.5 py-0.5 rounded my-1"
-                    href={data.links.subreddit_url}
-                  >
-                    <img className="h-7 m-1" src={redditSvg} alt="" />
-                  </a>
-                </>
-              ) : null}
             </div>
           </div>
         ) : null}

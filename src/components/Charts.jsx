@@ -24,7 +24,7 @@ const ChartComponent = ({ data, currency, type }) => {
         >
           <p
             className="label text-sm"
-            style={{ margin: "0", fontWeight: "700", color: "cyan" }}
+            style={{ fontWeight: "700", color: "cyan" }}
           >{`${label} : ${new Intl.NumberFormat("en-IN", {
             style: "currency",
             currency: currency,
@@ -112,9 +112,9 @@ function Charts({ id }) {
     getChatData(id);
   }, [id, type, days]);
   return (
-    <div>
+    <div className="">
       <ChartComponent data={chatData} currency={currency} type={type} />
-      <div className="flex gap-1 px-4">
+      <div className="flex gap-1">
         <div className="border p-2 rounded flex flex-col gap-2 w-full">
           <h1 className="text-center">Values</h1>
           <button

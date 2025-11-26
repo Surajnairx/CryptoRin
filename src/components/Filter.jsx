@@ -21,17 +21,17 @@ const Filter = () => {
     setSortBy(val);
   };
   return (
-    <div className="w-full h-fit bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl flex flex-wrap  justify-center  p-2 shadow-md">
+    <div className=" w-fit md:w-full h-fit bg-gray-900/60 backdrop-blur-md border border-gray-700 rounded-2xl flex md:flex-col lg:flex-row lg:justify-between sm:items-center  p-2 shadow-md">
       {/* 🔍 Search Component */}
-      <div className="">
+      <div>
         <Search />
       </div>
 
       {/* 💰 Currency + Sort Section */}
-      <div className="flex-col hidden items-center gap-1.5 mt-2">
+      <div className=" md:flex hidden items-center gap-1.5 m-2">
         {/* Currency Form */}
         <form
-          className="flex items-center bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 focus-within:border-cyan-400 transition duration-200"
+          className="flex shrink-0 items-center bg-gray-800 border border-gray-700 rounded-lg px-3 py-1.5 focus-within:border-cyan-400 transition duration-200"
           onSubmit={handleCurrency}
         >
           <label

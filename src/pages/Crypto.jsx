@@ -5,7 +5,7 @@ import { Outlet } from "react-router-dom";
 
 function Crypto() {
   return (
-    <section className="w-[80%] h-full flex flex-col mt-10 mb-60 relative">
+    <section className="w-[80%] h-full flex flex-col items-center mt-10 mb-60 relative">
       <Filter />
       <Table />
       <Outlet />
