@@ -115,23 +115,19 @@ function Table() {
             <table className="w-full table-auto">
               {/* Sticky Header */}
               <thead className=" bg-black text-gray-400 text-sm md:text-base z-10">
-                <tr>
-                  <th className="py-2 text-left px-2">asset</th>
-                  <th className="py-2 text-left px-2">name</th>
-                  <th className="py-2 text-left px-2">price</th>
-                  <th className="py-2 text-left px-2 hidden sm:table-cell">
+                <tr className="text-center">
+                  <th className="py-2 text-center px-2">asset</th>
+                  <th className="py-2 px-2">name</th>
+                  <th className="py-2 px-2">price</th>
+                  <th className="py-2 px-2 hidden sm:table-cell">
                     total volume
                   </th>
-                  <th className="py-2 text-left px-2 hidden md:table-cell">
+                  <th className="py-2 px-2 hidden md:table-cell">
                     market cap change
                   </th>
-                  <th className="py-2 text-left px-2 hidden md:table-cell">
-                    1H
-                  </th>
-                  <th className="py-2 text-left px-2">24H</th>
-                  <th className="py-2 text-left px-2 hidden md:table-cell">
-                    7D
-                  </th>
+                  <th className="py-2 px-2 hidden md:table-cell">1H</th>
+                  <th className="py-2 px-2">24H</th>
+                  <th className="py-2 px-2 hidden md:table-cell">7D</th>
                 </tr>
               </thead>
 
@@ -140,7 +136,7 @@ function Table() {
                 {coins.map((coin) => (
                   <tr
                     key={coin.id}
-                    className="hover:bg-gray-900 transition-colors"
+                    className="hover:bg-gray-900 transition-colors text-center"
                   >
                     {/* Asset */}
                     <td className="py-3 px-2 flex items-center gap-2 uppercase">
@@ -150,10 +146,7 @@ function Table() {
                         src={coin.image}
                         alt={coin.name}
                       />
-                      <Link
-                        to={`/${coin.id}`}
-                        className="cursor-pointer hidden md:block"
-                      >
+                      <Link to={`/${coin.id}`} className="cursor-pointer">
                         {coin.symbol}
                       </Link>
                     </td>
