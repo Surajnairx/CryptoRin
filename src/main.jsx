@@ -25,7 +25,7 @@ const router = createBrowserRouter([
         errorElement: <Crypto />,
       },
       {
-        path: "/trending",
+        path: "trending",
         element: <Trending />,
         children: [
           {
@@ -36,7 +36,7 @@ const router = createBrowserRouter([
         errorElement: <Trending />,
       },
       {
-        path: "/saved",
+        path: "saved",
         element: <Saved />,
         children: [
           {
