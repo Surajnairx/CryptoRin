@@ -28,49 +28,47 @@ export default function CryptoContextProvider({ children }) {
   const [coinData, setCoinData] = useState();
 
   const getCoinData = async (coinId) => {
-    const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
-    const options = {
-      method: "GET",
-      headers: { "x-cg-demo-api-key": API_KEY },
-      body: undefined,
-    };
+    // const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
+    // const options = {
+    //   method: "GET",
+    //   headers: { "x-cg-demo-api-key": API_KEY },
+    //   body: undefined,
+    // };
 
-    try {
-      const response = await fetch(url, options);
-      const data = await response.json();
-      setCoinData(data);
-    } catch (error) {
-      console.error(error);
-    }
+    // try {
+    //   const response = await fetch(url, options);
+    //   const data = await response.json();
+    //   setCoinData(data);
+    // } catch (error) {
+    //   console.error(error);
+    // }
+    const getCoinData = async (coinId) => {
+      try {
+        const response = await fetch(`/api/coin?coinId=${coinId}`);
+        const data = await response.json();
+        setCoinData(data);
+      } catch (error) {
+        console.error(error);
+      }
+    };
   };
   const getCryptoData = async () => {
     try {
-      const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinResult}&price_change_percentage=1h,24h,7d&per_page=${perPage}&order=${sortBy}&page=${currentPage}`;
-
-      const options = {
-        method: "GET",
-        headers: { "x-cg-demo-api-key": API_KEY },
-        body: null,
-      };
-      const response = await fetch(url, options);
+      const response = await fetch(
+        `/api/markets?currency=${currency}&coinResult=${coinResult}&perPage=${perPage}&sortBy=${sortBy}&page=${currentPage}`,
+      );
       const data = await response.json();
       setCoins(data);
     } catch (err) {
-      console.error(err);
+      console.error("Markets API error:", err);
     }
 
     try {
-      const url = "https://api.coingecko.com/api/v3/coins/list";
-      const options = {
-        method: "GET",
-        headers: { "x-cg-demo-api-key": API_KEY },
-        body: null,
-      };
-      const response = await fetch(url, options);
+      const response = await fetch("/api/list");
       const data = await response.json();
       setTotalPages(data.length);
     } catch (err) {
-      console.error(err);
+      console.error("List API error:", err);
     }
   };
   const reset = () => {
