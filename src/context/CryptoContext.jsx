@@ -28,29 +28,20 @@ export default function CryptoContextProvider({ children }) {
   const [coinData, setCoinData] = useState();
 
   const getCoinData = async (coinId) => {
-    // const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
-    // const options = {
-    //   method: "GET",
-    //   headers: { "x-cg-demo-api-key": API_KEY },
-    //   body: undefined,
-    // };
-
-    // try {
-    //   const response = await fetch(url, options);
-    //   const data = await response.json();
-    //   setCoinData(data);
-    // } catch (error) {
-    //   console.error(error);
-    // }
-    const getCoinData = async (coinId) => {
-      try {
-        const response = await fetch(`/api/coin?coinId=${coinId}`);
-        const data = await response.json();
-        setCoinData(data);
-      } catch (error) {
-        console.error(error);
-      }
+    const url = `https://api.coingecko.com/api/v3/coins/${coinId}`;
+    const options = {
+      method: "GET",
+      headers: { "x-cg-demo-api-key": API_KEY },
+      body: undefined,
     };
+
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
+      setCoinData(data);
+    } catch (error) {
+      console.error(error);
+    }
   };
   const getCryptoData = async () => {
     try {
