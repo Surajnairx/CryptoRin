@@ -54,21 +54,30 @@ export default function CryptoContextProvider({ children }) {
   };
   const getCryptoData = async () => {
     try {
-      const response = await fetch(
-        `/api/markets?currency=${currency}&coinResult=${coinResult}&perPage=${perPage}&sortBy=${sortBy}&page=${currentPage}`,
-      );
+      const url = `https://api.coingecko.com/api/v3/coins/markets?vs_currency=${currency}&ids=${coinResult}&price_change_percentage=1h,24h,7d&per_page=${perPage}&order=${sortBy}&page=${currentPage}`;
+      const options = {
+        method: "GET",
+        headers: { "x-cg-demo-api-key": API_KEY },
+        body: null,
+      };
+      const response = await fetch(url, options);
       const data = await response.json();
       setCoins(data);
     } catch (err) {
-      console.error("Markets API error:", err);
+      console.error(err);
     }
-
     try {
-      const response = await fetch("/api/list");
+      const url = "https://api.coingecko.com/api/v3/coins/list";
+      const options = {
+        method: "GET",
+        headers: { "x-cg-demo-api-key": API_KEY },
+        body: null,
+      };
+      const response = await fetch(url, options);
       const data = await response.json();
       setTotalPages(data.length);
     } catch (err) {
-      console.error("List API error:", err);
+      console.error(err);
     }
   };
   const reset = () => {
